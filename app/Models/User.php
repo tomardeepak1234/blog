@@ -35,12 +35,14 @@ public function state()
 {
     return $this->belongsTo(State::class);
 }
-
+    public function posts()
+{
+    return $this->hasMany(Post::class);
+}
     protected $hidden = [
         'password',
         'remember_token',
     ];
-
     /**
      * The attributes that should be cast.
      *
@@ -49,11 +51,4 @@ public function state()
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function posts()
-{
-    return $this->hasMany(Post::class);
-}
-
-
 }

@@ -21,14 +21,14 @@ public function up()
         $table->string('phone')->nullable();
 
         $table->unsignedBigInteger('role_id');
-        $table->unsignedBigInteger('state_id')->nullable();
+        $table->unsignedBigInteger('state_id');
 
         $table->string('profile_image')->nullable();
         $table->text('bio')->nullable();
 
         $table->string('password');
 
-       
+
         $table->timestamps();
 
         // Foreign Keys

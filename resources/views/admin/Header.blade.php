@@ -1,19 +1,16 @@
 <head>
   <meta charset="UTF-8">
-  <title>Simple Admin Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Bootstrap CSS --> 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title> Admin Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap 5 CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
     body {
       min-height: 100vh;
@@ -32,7 +29,7 @@
     .content {
       padding: 20px;
       background-color: #f8f9fa;
-    } 
+    }
   </style>
 
   <style>
@@ -417,7 +414,7 @@
   tbody tr:nth-child(3) { animation-delay: 0.15s; }
   tbody tr:nth-child(4) { animation-delay: 0.2s; }
   tbody tr:nth-child(5) { animation-delay: 0.25s; }
-  
+
 </style>
 <style>
 
@@ -444,6 +441,7 @@
       color: var(--text);
       display: grid;
       grid-template-columns: 420px 1fr;
+      overflow-x: hidden;
     }
 
 
@@ -833,7 +831,7 @@
       .field-row { grid-template-columns: 1fr; }
       .interests-grid { grid-template-columns: repeat(2, 1fr); }
     }
-  
+
 
 
 
@@ -904,6 +902,13 @@ body{
 
 .form-label{
     font-weight:500;
+}
+nav{
+    width: 100%;
+
+}
+.text-muted{
+    color: #ffffff !important;
 }
 </style>
   </style>

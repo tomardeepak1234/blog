@@ -207,7 +207,14 @@
   .nav-divider {
     border: none;
     border-top: 1px solid var(--border);
-    margin: 14px 0;
+    
+     font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  
+    margin-top: 14px;
+    font-weight: 600;
   }
 
   /* ── USER FOOTER ───────────────── */
@@ -278,6 +285,7 @@
   .logout-btn:hover { background: rgba(255,101,132,0.1); color: var(--accent2); }
 </style>
 
+
 <div class="sidebar">
 
   <!-- Brand -->
@@ -285,8 +293,14 @@
     <div class="sidebar-brand-inner">
       <div class="brand-logo">AP</div>
       <div class="brand-text">
-        <span class="brand-name">Admin Panel</span>
-        <span class="brand-sub">Management System</span>
+
+        @if (Auth::user()->role->name == 'User')
+            <span class="brand-name">User Profile</span>
+        @else
+            <span class="brand-name">Admin Panel</span>
+            <span class="brand-sub">Management System</span>
+        @endif
+
       </div>
       <div class="live-badge">
         <div class="live-dot"></div>
@@ -295,86 +309,70 @@
     </div>
   </div>
 
-  <!-- Nav -->
+
+  @if(Auth::user()->role->name !== 'User')
+
   <nav class="sidebar-nav">
 
-    <div class="nav-section-label">Main</div>
+    {{-- ADMIN SECTION --}}
+    @if(Auth::user()->role->name === 'Admin')
 
-     
-@if (Auth::user()->role->name==='Admin')
-    
+      <div class="nav-section-label">Main</div>
 
-    <a href="{{ url('dashboard') }}" class="nav-item-link active">
-      <div class="nav-icon">🏠</div>
-      <span class="nav-label">Dashboard</span>
-    </a>
+      <a href="{{ url('dashboard') }}" class="nav-item-link">
+        <div class="nav-icon">🏠</div>
+        <span class="nav-label">Dashboard</span>
+      </a>
 
-    <a href="{{ url('user') }}" class="nav-item-link">
-      <div class="nav-icon">👤</div>
-      <span class="nav-label">Users</span>
-      <span class="nav-badge nb-purple">{{Auth::user()->count()}}</span>
-    </a>
+      <a href="{{ url('user') }}" class="nav-item-link">
+        <div class="nav-icon">👤</div>
+        <span class="nav-label">Users</span>
+        <span class="nav-badge nb-purple">
+          {{ \App\Models\User::count() }}
+        </span>
+      </a>
 
+      <a href="{{ url('role_master') }}" class="nav-item-link">
+        <div class="nav-icon">🛡️</div>
+        <span class="nav-label">Role Master</span>
+      </a>
 
-    <a href="{{ url('role_master') }}" class="nav-item-link">
-      <div class="nav-icon">🛡️</div>
-      <span class="nav-label">Role Master</span>
-    </a>
+      <a href="{{ url('state_master') }}" class="nav-item-link">
+        <div class="nav-icon">🗺️</div>
+        <span class="nav-label">State Master</span>
+      </a>
 
-    <a href="{{ url('state_master') }}" class="nav-item-link">
-      <div class="nav-icon">🗺️</div>
-      <span class="nav-label">State Master</span>
-    </a>
-@endif
+    @endif
 
+    @if(in_array(Auth::user()->role->name, ['Admin','Author']))
 
-    <a href="{{ url('post') }}" class="nav-item-link">
-      <div class="nav-icon">📝</div>
-      <span class="nav-label">Post Management</span>
-      <span class="nav-badge nb-orange">New</span>
-    </a>
-    <a href="{{ url('my-posts')}}" class="nav-item-link">
-      <div class="nav-icon">📝</div>
-      <span class="nav-label">My Posts</span>
-      {{-- <span class="nav-badge nb-orange">New</span> --}}
-    </a>
+      
+      <div class="nav-divider">Content</div>
 
-    <a href="{{ url('settings') }}" class="nav-item-link">
-      <div class="nav-icon">⚙️</div>
-      <span class="nav-label">Settings</span>
-    </a>
+      <a href="{{ url('post') }}" class="nav-item-link">
+        <div class="nav-icon">📝</div>
+        <span class="nav-label">Post Management</span>
+      </a>
+
+      <a href="{{ url('my-posts') }}" class="nav-item-link">
+        <div class="nav-icon">📝</div>
+        <span class="nav-label">My Posts</span>
+      </a>
+
+      <a href="{{ url('settings') }}" class="nav-item-link">
+        <div class="nav-icon">⚙️</div>
+        <span class="nav-label">Settings</span>
+      </a>
+
+    @endif
 
   </nav>
 
-  <!-- Footer User Card -->
-  <div class="sidebar-footer">
-    <div style="display:flex; align-items:center; gap:8px;">
-      <a href="{{ url('profile') }}" class="user-card" style="flex:1; text-decoration:none;">
-        <div class="user-av-s"> {{ substr(Auth::user()->role->name, 0, 2) }}</div>
-        <div class="user-info">
-          <div class="user-info-name">{{Auth::user()->first_name}}</div>
-          <div class="user-info-role">{{Auth::user()->role->name}}</div>
-        </div>
-      </a>
-   <form method="POST" action="{{ route('logout') }}" style="margin:0;">
-    @csrf
-    <button type="submit" class="logout-btn" title="Logout">
-        <svg width="15" height="15" viewBox="0 0 24 24"
-             fill="none" stroke="currentColor" stroke-width="2.2">
-
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-            <polyline points="16 17 21 12 16 7"/>
-            <line x1="21" y1="12" x2="9" y2="12"/>
-        </svg>
-    </button>
-</form>
-    </div>
-  </div>
+  @endif
 
 </div>
 
 <script>
-  // Auto-highlight active nav link based on current URL
   document.querySelectorAll('.nav-item-link').forEach(link => {
     link.classList.remove('active');
     if (link.href === window.location.href ||

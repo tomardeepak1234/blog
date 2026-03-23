@@ -1,3 +1,5 @@
+
+
 @extends('admin.admin_meta')
 
 @section('content')
@@ -21,7 +23,8 @@
         --white: #ffffff;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ✅ FIX: overflow-x: hidden only on body/wrapper, not all elements */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     .pm-wrapper {
         min-height: 100vh;
@@ -31,6 +34,7 @@
         color: var(--text);
         position: relative;
         left: 4%;
+        overflow-x: hidden; /* ✅ FIX: only on wrapper, not * */
     }
 
     .pm-wrapper::before {
@@ -190,10 +194,7 @@
         border-collapse: collapse;
     }
 
-    .pm-table thead tr {
-        background: var(--surface2);
-    }
-
+    .pm-table thead tr { background: var(--surface2); }
     .pm-table thead th {
         padding: 0.9rem 1.2rem;
         font-family: 'Syne', sans-serif;
@@ -213,7 +214,6 @@
     }
     .pm-table tbody tr:hover { background: rgba(108,99,255,0.04); }
     .pm-table tbody tr:last-child { border-bottom: none; }
-
     .pm-table tbody td {
         padding: 0.9rem 1.2rem;
         font-size: 0.88rem;
@@ -222,7 +222,6 @@
         vertical-align: middle;
     }
 
-    /* Index badge */
     .idx-badge {
         display: inline-block;
         background: var(--surface2);
@@ -234,10 +233,8 @@
         border-radius: 4px;
     }
 
-    /* Post image */
     .post-thumb {
-        width: 52px;
-        height: 52px;
+        width: 52px; height: 52px;
         object-fit: cover;
         border-radius: 8px;
         border: 1px solid var(--border);
@@ -245,22 +242,15 @@
     }
 
     .no-img {
-        width: 52px;
-        height: 52px;
+        width: 52px; height: 52px;
         border-radius: 8px;
         background: var(--surface2);
         border: 1px dashed var(--border);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--muted);
-        font-size: 1.2rem;
+        display: flex; align-items: center; justify-content: center;
+        color: var(--muted); font-size: 1.2rem;
     }
 
-    /* Post title cell */
-    .post-title-cell {
-        max-width: 260px;
-    }
+    .post-title-cell { max-width: 260px; }
     .post-title-text {
         font-weight: 500;
         color: var(--white);
@@ -271,29 +261,19 @@
         display: block;
     }
 
-    /* Author chip */
-    .author-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
+    .author-chip { display: inline-flex; align-items: center; gap: 0.5rem; }
     .author-avatar {
         width: 28px; height: 28px;
         border-radius: 6px;
         background: linear-gradient(135deg, var(--emerald), var(--accent));
         display: flex; align-items: center; justify-content: center;
         font-family: 'Syne', sans-serif;
-        font-size: 0.65rem;
-        font-weight: 700;
-        color: var(--white);
-        flex-shrink: 0;
+        font-size: 0.65rem; font-weight: 700;
+        color: var(--white); flex-shrink: 0;
     }
     .author-name { font-size: 0.85rem; color: var(--text); }
-
-    /* Date */
     .date-text { font-size: 0.8rem; color: var(--muted); }
 
-    /* Actions */
     .action-wrap { display:flex; align-items:center; gap:0.5rem; }
 
     .btn-edit-p {
@@ -331,7 +311,6 @@
         border-color: rgba(255,79,107,0.5);
     }
 
-    /* Empty state */
     .empty-state {
         text-align: center;
         padding: 4rem 2rem;
@@ -340,24 +319,66 @@
     .empty-state .empty-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
     .empty-state p { font-size: 0.9rem; }
 
-    /* Table footer */
+    /* ── Table Footer ── */
     .table-footer {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 1rem 1.5rem;
-        border-top: 1px solid var(--border);
         flex-wrap: wrap;
-        gap: 0.5rem;
+        gap: 0.75rem;
+        padding: 0.9rem 1.5rem;
+        border-top: 1px solid var(--border);
     }
     .table-count { font-size: 0.78rem; color: var(--muted); }
 
-    @media (max-width: 700px) {
+    /* ✅ FIX: Override Bootstrap 5 pagination to match dark theme */
+    .pagination {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    .page-item .page-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 30px;
+        height: 30px;
+        padding: 0 0.5rem;
+        border-radius: 6px !important;
+        font-size: 0.78rem;
+        font-family: 'Karla', sans-serif;
+        color: var(--muted);
+        background: transparent;
+        border: 1px solid transparent !important;
+        text-decoration: none;
+        transition: all 0.15s;
+    }
+    .page-item .page-link:hover {
+        background: var(--surface2);
+        color: var(--text);
+        border-color: var(--border) !important;
+    }
+    .page-item.active .page-link {
+        background: var(--accent) !important;
+        color: var(--white) !important;
+        border-color: var(--accent) !important;
+        box-shadow: none;
+    }
+    .page-item.disabled .page-link {
+        opacity: 0.3;
+        cursor: default;
+        pointer-events: none;
+        background: transparent;
+    }
+
+    @media (max-width: 600px) {
         .pm-wrapper { padding: 1.5rem 1rem; }
         .pm-header-left h1 { font-size: 1.5rem; }
-        .pm-table thead th, .pm-table tbody td { padding: 0.7rem 0.8rem; }
-        .post-title-text { max-width: 140px; }
     }
+
 </style>
 
 <div class="pm-wrapper">
@@ -370,45 +391,54 @@
             <h1>Post Management</h1>
         </div>
         <a href="{{ route('posts.create') }}" class="btn-add-post">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
             Add Post
         </a>
     </div>
 
     {{-- Stats --}}
+    {{-- ✅ FIX: $posts->total() for paginator total, getCollection()->filter() for collection methods --}}
     <div class="stats-row">
         <div class="stat-card">
             <div class="stat-dot" style="background: var(--accent2)"></div>
             <span class="stat-label">Total Posts</span>
-            <span class="stat-value">{{ $posts->count() }}</span>
+            <span class="stat-value">{{ $posts->total() }}</span>
         </div>
         <div class="stat-card">
             <div class="stat-dot" style="background: var(--emerald)"></div>
             <span class="stat-label">This Month</span>
-            <span class="stat-value">{{ $posts->filter(fn($p) => $p->created_at->isCurrentMonth())->count() }}</span>
+            <span class="stat-value">{{ $posts->getCollection()->filter(fn($p) => $p->created_at->isCurrentMonth())->count() }}</span>
         </div>
         <div class="stat-card">
             <div class="stat-dot" style="background: var(--amber)"></div>
             <span class="stat-label">With Images</span>
-            <span class="stat-value">{{ $posts->filter(fn($p) => $p->image)->count() }}</span>
+            <span class="stat-value">{{ $posts->getCollection()->filter(fn($p) => $p->image)->count() }}</span>
         </div>
         <div class="stat-card">
             <div class="stat-dot" style="background: var(--danger)"></div>
             <span class="stat-label">Authors</span>
-            <span class="stat-value">{{ $posts->pluck('user.first_name')->filter()->unique()->count() }}</span>
+            <span class="stat-value">{{ $posts->getCollection()->pluck('user.first_name')->filter()->unique()->count() }}</span>
         </div>
     </div>
 
     {{-- Table --}}
     <div class="table-card">
+
         <div class="table-toolbar">
             <span class="toolbar-title">All Posts</span>
             <div class="search-box">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
                 <input type="text" id="postSearch" placeholder="Search posts...">
             </div>
         </div>
 
+        {{-- ✅ FIX: overflow-x:auto only wraps the table, not pagination --}}
         <div style="overflow-x: auto;">
             <table class="pm-table" id="postTable">
                 <thead>
@@ -424,7 +454,7 @@
                 <tbody id="postTableBody">
                     @forelse ($posts as $index => $post)
                     <tr>
-                        <td><span class="idx-badge">{{ $index + 1 }}</span></td>
+                        <td><span class="idx-badge">{{ ($posts->currentPage() - 1) * $posts->perPage() + $index + 1 }}</span></td>
                         <td>
                             @if($post->image)
                                 <img src="{{ asset('storage/' . $post->image) }}" class="post-thumb" alt="{{ $post->title }}">
@@ -447,14 +477,21 @@
                         <td>
                             <div class="action-wrap">
                                 <a href="{{ route('posts.edit', $post->id) }}" class="btn-edit-p">
-                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                    </svg>
                                     Edit
                                 </a>
                                 <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="margin:0" class="delete-form">
                                     @csrf
                                     @method('DELETE')
                                     <button type="button" class="btn-del-p" onclick="openDeleteModal(this)">
-                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M9 6V4h6v2"/></svg>
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="3 6 5 6 21 6"/>
+                                            <path d="M19 6l-1 14H6L5 6"/>
+                                            <path d="M9 6V4h6v2"/>
+                                        </svg>
                                         Delete
                                     </button>
                                 </form>
@@ -476,8 +513,12 @@
         </div>
 
         <div class="table-footer">
-            <span class="table-count" id="rowCount">Showing {{ $posts->count() }} post{{ $posts->count() !== 1 ? 's' : '' }}</span>
+            {{-- <span class="table-count" id="rowCount">
+                Showing {{ $posts->firstItem() ?? 0 }}–{{ $posts->lastItem() ?? 0 }} of {{ $posts->total() }} posts
+            </span> --}}
+            {{ $posts->links('pagination::bootstrap-5') }}
         </div>
+
     </div>
 
 </div>
@@ -487,13 +528,21 @@
 <div id="deleteModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); backdrop-filter:blur(4px); z-index:9999; align-items:center; justify-content:center;">
     <div style="background:#1a1a2a; border:1px solid #252538; border-radius:16px; padding:2rem; max-width:380px; width:90%; text-align:center; animation: fadeDown 0.25s ease;">
         <div style="width:52px;height:52px;background:rgba(255,79,107,0.12);border-radius:12px;margin:0 auto 1.2rem;display:flex;align-items:center;justify-content:center;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff4f6b" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M9 6V4h6v2"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff4f6b" stroke-width="2">
+                <polyline points="3 6 5 6 21 6"/>
+                <path d="M19 6l-1 14H6L5 6"/>
+                <path d="M9 6V4h6v2"/>
+            </svg>
         </div>
         <h3 style="font-family:'Syne',sans-serif;font-size:1.1rem;color:#fff;margin-bottom:0.6rem;">Delete Post?</h3>
         <p style="font-size:0.85rem;color:#6b6b8a;margin-bottom:1.5rem;">This action cannot be undone. The post will be permanently removed.</p>
         <div style="display:flex;gap:0.75rem;justify-content:center;">
-            <button onclick="closeDeleteModal()" style="padding:0.6rem 1.4rem;background:transparent;border:1px solid #252538;color:#6b6b8a;border-radius:8px;font-family:'Karla',sans-serif;font-size:0.85rem;cursor:pointer;">Cancel</button>
-            <button id="confirmDeleteBtn" style="padding:0.6rem 1.4rem;background:#ff4f6b;border:none;color:#fff;border-radius:8px;font-family:'Karla',sans-serif;font-size:0.85rem;cursor:pointer;font-weight:500;">Yes, Delete</button>
+            <button onclick="closeDeleteModal()" style="padding:0.6rem 1.4rem;background:transparent;border:1px solid #252538;color:#6b6b8a;border-radius:8px;font-family:'Karla',sans-serif;font-size:0.85rem;cursor:pointer;">
+                Cancel
+            </button>
+            <button id="confirmDeleteBtn" style="padding:0.6rem 1.4rem;background:#ff4f6b;border:none;color:#fff;border-radius:8px;font-family:'Karla',sans-serif;font-size:0.85rem;cursor:pointer;font-weight:500;">
+                Yes, Delete
+            </button>
         </div>
     </div>
 </div>
@@ -519,20 +568,23 @@
         if (e.target === this) closeDeleteModal();
     });
 
-    // Live search
+    // ✅ FIX: rowCount element now exists, live search works correctly
     document.getElementById('postSearch').addEventListener('input', function () {
         const q = this.value.toLowerCase();
         const rows = document.querySelectorAll('#postTableBody tr');
         let visible = 0;
+
         rows.forEach(row => {
             const text = row.textContent.toLowerCase();
             const match = text.includes(q);
             row.style.display = match ? '' : 'none';
             if (match) visible++;
         });
+
+        // ✅ FIX: rowCount element exists now
         document.getElementById('rowCount').textContent =
-            `Showing ${visible} post${visible !== 1 ? 's' : ''}`;
+            q ? `Showing ${visible} result${visible !== 1 ? 's' : ''} for "${this.value}"`
+              : `Showing {{ $posts->firstItem() ?? 0 }}–{{ $posts->lastItem() ?? 0 }} of {{ $posts->total() }} posts`;
     });
 </script>
-
 @endsection

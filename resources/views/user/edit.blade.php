@@ -38,6 +38,12 @@
         color: #fff;
     }
 
+    /* Dropdown option styling */
+    .form-control option {
+        background: #1a1a2a;
+        color: #fff;
+    }
+
     .btn-primary {
         background: #6c63ff;
         border: none;
@@ -67,7 +73,6 @@
     .edit-header {
         margin-bottom: 1rem;
     }
-
 </style>
 
 <div class="container mt-5">
@@ -77,10 +82,7 @@
         <!-- Header -->
         <div class="edit-header d-flex justify-content-between align-items-center">
             <h3>Edit User</h3>
-
-            <a href="{{ route('list') }}" class="btn btn-light btn-sm">
-                ← Back
-            </a>
+            <a href="{{ route('list') }}" class="btn btn-light btn-sm">← Back</a>
         </div>
 
         <!-- Edit Form -->
@@ -95,7 +97,6 @@
                            value="{{ old('first_name', $user->first_name) }}"
                            class="form-control" required>
                 </div>
-
                 <div class="col-md-6">
                     <label class="form-label">Email</label>
                     <input type="email" name="email"
@@ -111,15 +112,30 @@
                            value="{{ old('phone', $user->phone) }}"
                            class="form-control">
                 </div>
-
                 <div class="col-md-6">
                     <label class="form-label">Role</label>
                     <select name="role_id" class="form-control">
                         <option value="">-- Select Role --</option>
                         @foreach($roles as $role)
                             <option value="{{ $role->id }}"
-                                {{ $user->role_id == $role->id ? 'selected' : '' }}>
+                                {{ old('role_id', $user->role_id) == $role->id ? 'selected' : '' }}>
                                 {{ $role->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            {{-- State Row --}}
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">State</label>
+                    <select name="state_id" class="form-control">
+                        <option value="">-- Select State --</option>
+                        @foreach($states as $state)
+                            <option value="{{ $state->id }}"
+                                {{ old('state_id', $user->state_id) == $state->id ? 'selected' : '' }}>
+                                {{ $state->name }}
                             </option>
                         @endforeach
                     </select>

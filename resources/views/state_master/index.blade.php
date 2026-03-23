@@ -32,14 +32,13 @@
         padding: 2.5rem 2rem;
         color: var(--text);
         position: relative;
-        left:4%;
+        left: 4%;
     }
 
     .sm-wrapper::before {
         content: '';
         position: fixed;
-        top: -10%;
-        right: 15%;
+        top: -10%; right: 15%;
         width: 550px; height: 550px;
         background: radial-gradient(circle, rgba(108,99,255,0.07) 0%, transparent 65%);
         pointer-events: none;
@@ -53,7 +52,6 @@
         z-index: 1;
     }
 
-    /* ── Animations ── */
     @keyframes fadeDown {
         from { opacity:0; transform:translateY(-14px); }
         to   { opacity:1; transform:translateY(0); }
@@ -67,7 +65,7 @@
         to   { opacity:1; transform:translateX(0); }
     }
 
-    /* ── Header ── */
+    /* Header */
     .sm-header {
         display: flex;
         align-items: center;
@@ -103,7 +101,7 @@
         line-height: 1;
     }
 
-    /* ── Toast ── */
+    /* Toast */
     .sm-toast {
         display: flex;
         align-items: center;
@@ -127,13 +125,12 @@
         cursor: pointer;
         font-size: 1rem;
         padding: 0;
-        line-height: 1;
         opacity: 0.7;
         transition: opacity 0.2s;
     }
     .sm-toast .toast-close:hover { opacity: 1; }
 
-    /* ── Main Grid ── */
+    /* Grid */
     .sm-grid {
         display: grid;
         grid-template-columns: 320px 1fr;
@@ -141,11 +138,9 @@
         align-items: start;
     }
 
-    @media (max-width: 860px) {
-        .sm-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 860px) { .sm-grid { grid-template-columns: 1fr; } }
 
-    /* ── Form Card ── */
+    /* Form Card */
     .form-card {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -181,18 +176,8 @@
         letter-spacing: 0.08em;
         text-transform: uppercase;
     }
-
-    .mode-badge.new {
-        background: rgba(108,99,255,0.15);
-        color: var(--accent2);
-        border: 1px solid rgba(108,99,255,0.3);
-    }
-
-    .mode-badge.editing {
-        background: var(--amber-dim);
-        color: var(--amber);
-        border: 1px solid rgba(251,191,36,0.3);
-    }
+    .mode-badge.new      { background: rgba(108,99,255,0.15); color: var(--accent2); border: 1px solid rgba(108,99,255,0.3); }
+    .mode-badge.editing  { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
 
     .form-card-body { padding: 1.5rem; }
 
@@ -205,7 +190,6 @@
         color: var(--muted);
         margin-bottom: 0.55rem;
     }
-
     .field-label .req { color: var(--danger); margin-left: 2px; }
 
     .field-input {
@@ -220,12 +204,7 @@
         outline: none;
         transition: all 0.2s ease;
     }
-
-    .field-input:focus {
-        border-color: var(--accent);
-        box-shadow: 0 0 0 3px rgba(108,99,255,0.12);
-    }
-
+    .field-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(108,99,255,0.12); }
     .field-input::placeholder { color: var(--muted); }
     .field-input.is-invalid { border-color: var(--danger); }
 
@@ -258,12 +237,7 @@
         justify-content: center;
         gap: 0.5rem;
     }
-
-    .btn-save:hover {
-        background: #7c74ff;
-        box-shadow: 0 0 32px rgba(108,99,255,0.5);
-        transform: translateY(-1px);
-    }
+    .btn-save:hover { background: #7c74ff; box-shadow: 0 0 32px rgba(108,99,255,0.5); transform: translateY(-1px); }
 
     .btn-cancel {
         width: 100%;
@@ -282,13 +256,9 @@
         text-decoration: none;
         display: block;
     }
+    .btn-cancel:hover { border-color: var(--muted); color: var(--text); }
 
-    .btn-cancel:hover {
-        border-color: var(--muted);
-        color: var(--text);
-    }
-
-    /* ── Table Card ── */
+    /* Table Card */
     .table-card {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -344,9 +314,7 @@
         padding: 0.45rem 0.9rem;
         transition: border-color 0.2s;
     }
-
     .search-box:focus-within { border-color: var(--accent); }
-
     .search-box input {
         background: none;
         border: none;
@@ -356,10 +324,9 @@
         font-size: 0.85rem;
         width: 160px;
     }
-
     .search-box input::placeholder { color: var(--muted); }
 
-    /* ── Table ── */
+    /* Table */
     .sm-table {
         width: 100%;
         border-collapse: collapse;
@@ -384,7 +351,6 @@
         border-bottom: 1px solid var(--border);
         transition: background 0.15s ease;
     }
-
     .sm-table tbody tr:hover { background: rgba(108,99,255,0.04); }
     .sm-table tbody tr:last-child { border-bottom: none; }
 
@@ -423,11 +389,7 @@
         flex-shrink: 0;
     }
 
-    .state-name-text {
-        font-weight: 500;
-        color: var(--white);
-    }
-
+    .state-name-text { font-weight: 500; color: var(--white); }
     .date-text { font-size: 0.8rem; color: var(--muted); }
 
     .action-wrap { display: flex; align-items: center; gap: 0.5rem; }
@@ -444,12 +406,7 @@
         text-decoration: none;
         transition: all 0.2s ease;
     }
-
-    .btn-edit-s:hover {
-        background: rgba(108,99,255,0.25);
-        color: var(--accent2);
-        border-color: rgba(108,99,255,0.5);
-    }
+    .btn-edit-s:hover { background: rgba(108,99,255,0.25); color: var(--accent2); border-color: rgba(108,99,255,0.5); }
 
     .btn-del-s {
         display: inline-flex; align-items: center; gap: 0.3rem;
@@ -463,41 +420,106 @@
         cursor: pointer;
         transition: all 0.2s ease;
     }
-
-    .btn-del-s:hover {
-        background: rgba(255,79,107,0.22);
-        border-color: rgba(255,79,107,0.5);
-    }
+    .btn-del-s:hover { background: rgba(255,79,107,0.22); border-color: rgba(255,79,107,0.5); }
 
     .empty-state {
         text-align: center;
         padding: 3.5rem 2rem;
         color: var(--muted);
     }
-
     .empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.4; }
     .empty-state p { font-size: 0.88rem; }
 
+    /* Table Footer */
     .table-footer {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.75rem;
         padding: 0.9rem 1.5rem;
         border-top: 1px solid var(--border);
     }
 
     .table-count { font-size: 0.78rem; color: var(--muted); }
 
+
+
+
+    .pg-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 30px;
+        height: 30px;
+        padding: 0 0.5rem;
+        border-radius: 6px;
+        font-size: 0.78rem;
+        font-family: 'Karla', sans-serif;
+        color: var(--muted);
+        background: transparent;
+        border: 1px solid transparent;
+        text-decoration: none;
+        transition: all 0.15s;
+        cursor: pointer;
+    }
+    .pg-btn:hover          { background: var(--surface2); color: var(--text); border-color: var(--border); }
+    .pg-btn--active        { background: var(--accent) !important; color: var(--white) !important; border-color: var(--accent) !important; }
+    .pg-btn--disabled      { opacity: 0.3; cursor: default; pointer-events: none; }
+
     @media (max-width: 600px) {
         .sm-wrapper { padding: 1.5rem 1rem; }
         .sm-header-text h1 { font-size: 1.5rem; }
     }
+    .pagination {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    .page-item .page-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 30px;
+        height: 30px;
+        padding: 0 0.5rem;
+        border-radius: 6px !important;
+        font-size: 0.78rem;
+        font-family: 'Karla', sans-serif;
+        color: var(--muted);
+        background: transparent;
+        border: 1px solid transparent !important;
+        text-decoration: none;
+        transition: all 0.15s;
+    }
+    .page-item .page-link:hover {
+        background: var(--surface2);
+        color: var(--text);
+        border-color: var(--border) !important;
+    }
+    .page-item.active .page-link {
+        background: var(--accent) !important;
+        color: var(--white) !important;
+        border-color: var(--accent) !important;
+        box-shadow: none;
+    }
+    .page-item.disabled .page-link {
+        opacity: 0.3;
+        cursor: default;
+        pointer-events: none;
+        background: transparent;
+    }
+
+
 </style>
 
 <div class="sm-wrapper">
 <div class="sm-inner">
 
-    {{-- ── Header ── --}}
+    {{-- Header --}}
     <div class="sm-header">
         <div class="sm-header-icon">🗺️</div>
         <div class="sm-header-text">
@@ -506,7 +528,7 @@
         </div>
     </div>
 
-    {{-- ── Toast ── --}}
+    {{-- Toast --}}
     @if(session('success'))
     <div class="sm-toast" id="sm-toast">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -515,10 +537,10 @@
     </div>
     @endif
 
-    {{-- ── Grid ── --}}
+    {{-- Grid --}}
     <div class="sm-grid">
 
-        {{-- ── Form Card ── --}}
+        {{-- Form Card --}}
         <div class="form-card">
             <div class="form-card-top">
                 <span class="fc-title">{{ isset($editState) ? 'Edit State' : 'Add New State' }}</span>
@@ -527,7 +549,7 @@
                 </span>
             </div>
             <div class="form-card-body">
-                <form method="POST" action="{{ isset($editState) ? route('states.update', $editState->id) : route('states.store') }}">
+                <form method="POST" action="{{ isset($editState) ? route('states.update',$editState->id): route('states.store') }}">
                     @csrf
                     @if(isset($editState)) @method('PUT') @endif
 
@@ -565,17 +587,16 @@
                     @if(isset($editState))
                     <a href="{{ route('states.index') }}" class="btn-cancel">Cancel</a>
                     @endif
-
                 </form>
             </div>
         </div>
 
-        {{-- ── Table Card ── --}}
+        {{-- Table Card --}}
         <div class="table-card">
             <div class="table-toolbar">
                 <div class="toolbar-left">
                     <span class="toolbar-title">All States</span>
-                    <span class="state-count-badge">{{ count($states) }}</span>
+                    <span class="state-count-badge">{{ $states->total() }}</span>
                 </div>
                 <div class="search-box">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6b6b8a" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -587,16 +608,20 @@
                 <table class="sm-table" id="statesTable">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th style="width:65px;">#</th>
                             <th>State Name</th>
-                            <th>Created</th>
-                            <th style="text-align:right; padding-right:1.5rem;">Actions</th>
+                            <th style="width:130px;">Created</th>
+                            <th style="width:150px; text-align:right; padding-right:1.5rem;">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="statesBody">
                         @forelse($states as $key => $state)
                         <tr>
-                            <td><span class="idx-badge">{{ $key + 1 }}</span></td>
+                            <td>
+                                <span class="idx-badge">
+                                    {{ ($states->currentPage() - 1) * $states->perPage() + $key + 1 }}
+                                </span>
+                            </td>
                             <td>
                                 <div class="state-name-cell">
                                     <div class="state-icon-wrap">🗺️</div>
@@ -632,18 +657,23 @@
                         @endforelse
                     </tbody>
                 </table>
+                <div class="mt-3">
+
+</div>
             </div>
 
+            {{-- Table Footer: count + custom pagination --}}
             <div class="table-footer">
-                <span class="table-count" id="stateCount">{{ count($states) }} state{{ count($states) !== 1 ? 's' : '' }} total</span>
+                {{ $states->links('pagination::bootstrap-5') }}
             </div>
+
         </div>
 
     </div>
 </div>
 </div>
 
-{{-- ── Delete Modal ── --}}
+{{-- Delete Modal --}}
 <div id="deleteModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); backdrop-filter:blur(4px); z-index:9999; align-items:center; justify-content:center;">
     <div style="background:#1a1a2a; border:1px solid #252538; border-radius:16px; padding:2rem; max-width:380px; width:90%; text-align:center;">
         <div style="width:52px;height:52px;background:rgba(255,79,107,0.12);border-radius:12px;margin:0 auto 1.2rem;display:flex;align-items:center;justify-content:center;">
@@ -699,8 +729,14 @@
             row.style.display = match ? '' : 'none';
             if (match) visible++;
         });
-        document.getElementById('stateCount').textContent =
-            `${visible} state${visible !== 1 ? 's' : ''} ${q ? 'found' : 'total'}`;
+        // Update footer count during search
+        if (q) {
+            document.getElementById('stateCount').textContent =
+                `${visible} state${visible !== 1 ? 's' : ''} found`;
+        } else {
+            document.getElementById('stateCount').textContent =
+                `Showing {{ $states->firstItem() ?? 0 }}–{{ $states->lastItem() ?? 0 }} of {{ $states->total() }} state{{ $states->total() !== 1 ? 's' : '' }}`;
+        }
     });
 </script>
 

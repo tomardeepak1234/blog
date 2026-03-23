@@ -10,7 +10,7 @@ class StateController extends Controller
     // Show Form + List
     public function index()
     {
-        $states = State::latest()->get();
+        $states = State::latest()->paginate(2);
 
         return view('state_master.index', compact('states'));
     }
@@ -33,8 +33,8 @@ class StateController extends Controller
     // Edit State
     public function edit($id)
     {
-        $editState = State::findOrFail($id); 
-        $states = State::latest()->get();
+        $editState = State::findOrFail($id);
+        $states = State::latest()->paginate(2);
 
         return view('state_master.index', compact('editState', 'states'));
     }

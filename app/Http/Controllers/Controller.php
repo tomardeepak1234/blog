@@ -10,7 +10,7 @@ class Controller extends BaseController
 {
       public function ShowAminPanel()
     {
-        
+
         return view('Admin.Admin_meta');
     }
 

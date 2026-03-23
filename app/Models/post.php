@@ -15,21 +15,22 @@ class Post extends Model
         'description',
         'image',
         'user_id',
-        'state_id'
+        'state_id',
+        'is_published'
     ];
 
     protected $table='posts';
-    
+
       public function user()
     {
         return $this->belongsTo(User::class);
     }
-    
+
     public function state()
 {
     return $this->belongsTo(State::class);
 }
-    
+
        public function likes()
     {
         return $this->hasMany(PostLike::class,'post_id');

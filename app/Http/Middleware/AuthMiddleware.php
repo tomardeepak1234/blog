@@ -16,15 +16,10 @@ class AuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-    if(Auth::check())
-        if(Auth::user()->role->name==='Admin'){
-            return $next($request);
-
+        if (!Auth::check()) {
+            return redirect()->route('login');
         }
-        abort(403,'Permission Denied');
 
+        return $next($request);
     }
-
-    
 }

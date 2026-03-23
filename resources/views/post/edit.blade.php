@@ -3,7 +3,6 @@
 @section('content')
 
 <style>
-    /* Dashboard-style card */
     .dashboard-card {
         background: #13131f;
         border: 1px solid #252538;
@@ -44,19 +43,42 @@
         font-weight: 600;
         border-radius: 8px;
     }
-    .btn-success:hover {
-        background: #a78bfa;
-    }
+    .btn-success:hover { background: #a78bfa; }
 
-    .btn-secondary {
-        border-radius: 8px;
-    }
+    .btn-secondary { border-radius: 8px; }
 
     .current-image img {
         border-radius: 8px;
         margin-top: 0.5rem;
     }
 
+    /* ── Styled Dropdown ── */
+    .status-select {
+        appearance: none;
+        -webkit-appearance: none;
+        background-color: #1a1a2a;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236c63ff' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        padding-right: 2.5rem;
+        border: 1px solid #252538;
+        color: #fff;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .status-select:focus {
+        border-color: #6c63ff;
+        box-shadow: 0 0 5px rgba(108,99,255,0.3);
+        outline: none;
+    }
+
+    .status-select option {
+        background: #1a1a2a;
+        color: #fff;
+        padding: 8px;
+    }
 </style>
 
 <div class="container mt-5">
@@ -89,13 +111,27 @@
                 @if($post->image)
                     <img src="{{ asset('storage/'.$post->image) }}" width="150">
                 @else
-                    <p>No image uploaded</p>
+                    <p class="text-secondary">No image uploaded</p>
                 @endif
             </div>
 
-            <div class="mb-4">
+            {{-- Change Image — apna alag div ── --}}
+            <div class="mb-3">
                 <label class="form-label">Change Image</label>
                 <input type="file" name="image" class="form-control">
+            </div>
+
+            {{-- Status Dropdown — bilkul alag div ── --}}
+            <div class="mb-4">
+                <label class="form-label">Status</label>
+                <select name="is_published" class="form-control status-select">
+                    <option value="1" {{ old('is_published', $post->is_published ?? 1) == 1 ? 'selected' : '' }}>
+                        ✅ Published
+                    </option>
+                    <option value="0" {{ old('is_published', $post->is_published ?? 1) == 0 ? 'selected' : '' }}>
+                        🚫 Unpublished
+                    </option>
+                </select>
             </div>
 
             <div class="d-flex gap-2">

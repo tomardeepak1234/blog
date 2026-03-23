@@ -1,4 +1,7 @@
+@if (Auth::user()->role->name=='Admin'||Auth::user()->role->name=='Auther')
 @extends('admin.admin_meta')
+@endif
+
 
 @section('content')
 
@@ -33,6 +36,7 @@
         color: var(--text);
         padding: 2.5rem 2rem;
         position: relative;
+        left: 4%;
     }
 
     .profile-wrapper::before {
@@ -670,10 +674,9 @@
 
                     <div class="avatar-card-body">
                         <div class="avatar-wrap">
-                            {{-- Show image if exists, else initials --}}
-                            @if(Auth::user()->avatar)
+                            @if(Auth::user()->profile_image)
                                 <img
-                                    src="{{ asset('storage/' . Auth::user()->avatar) }}"
+                                   src="{{ asset('storage/' . Auth::user()->profile_image) }}?v={{ time() }}"
                                     alt="Profile"
                                     class="avatar-img"
                                     id="avatarPreview"
@@ -689,7 +692,7 @@
                             <div class="avatar-edit-btn" title="Change photo">
                                 <input
                                     type="file"
-                                    name="avatar"
+                                    name="profile_image"
                                     accept="image/*"
                                     onchange="previewAvatar(this)"
                                 >
@@ -711,9 +714,6 @@
                         </button>
                     </div>
 
-                    <div class="avatar-upload-hint">
-                        JPG, PNG or WEBP · Max 2MB · Recommended 400×400
-                    </div>
                 </form>
             </div>
 
@@ -851,24 +851,25 @@
                         </div>
 
                         <div class="form-row">
-                            <div class="field-group">
-                                <label class="field-label" for="website">Website</label>
-                                <input type="url" id="website" name="website"
-                                    class="field-input"
-                                    value="{{ Auth::user()->website ?? '' }}"
-                                    placeholder="https://yoursite.com">
-                            </div>
-                            <div class="field-group">
-                                <label class="field-label" for="location">Location</label>
-                                <input type="text" id="location" name="location"
-                                    class="field-input"
-                                    value="{{ Auth::user()->location ?? '' }}"
-                                    placeholder="City, Country">
-                            </div>
-                        </div>
 
-                        <div class="form-row full">
-                            <div class="field-group">
+                        <div class="field-group">
+    <label class="field-label" for="state_id">State</label>
+    <select id="state_id" name="state_id" class="field-input">
+        <option value="">-- Select State --</option>
+
+
+        @isset($states)
+            @foreach($states as $state)
+                <option value="{{ $state->id }}"
+            {{ old('state_id', $user->state_id ?? '') == $state->id ? 'selected' : '' }}>
+            {{ $state->name }}
+        </option>
+            @endforeach
+        @endisset
+    </select>
+</div>
+
+                                 <div class="field-group">
                                 <label class="field-label" for="role_display">Role</label>
                                 <input type="text" id="role_display"
                                     class="field-input"
@@ -877,6 +878,8 @@
                                 <span class="field-hint">Role is assigned by administrator</span>
                             </div>
                         </div>
+
+
 
                         <div class="form-footer">
                             <button type="submit" class="btn-save">
@@ -1017,23 +1020,39 @@
                                 <h4>Deactivate Account</h4>
                                 <p>Temporarily disable your account. You can reactivate it by logging in again.</p>
                             </div>
-                            <button type="button" class="btn-danger">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
-                                Deactivate
-                            </button>
+                           <button type="button" class="btn-danger"
+    onclick="if(confirm('Are you sure you want to deactivate your account?')) {
+        document.getElementById('deactivateForm').submit();}">
+
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18.36 6.64a9 9 0 1 1-12.73 0"/>
+        <line x1="12" y1="2" x2="12" y2="12"/>
+    </svg>
+    Deactivate
+</button>
                         </div>
 
                         {{-- Delete account --}}
-                        <div class="danger-zone">
-                            <div class="danger-zone-info">
-                                <h4>Delete Account</h4>
-                                <p>Permanently delete your account and all associated data. This cannot be undone.</p>
-                            </div>
-                            <button type="button" class="btn-danger" onclick="openDeleteModal()">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M9 6V4h6v2"/></svg>
-                                Delete Account
-                            </button>
-                        </div>
+                      <div class="danger-zone">
+    <div class="danger-zone-info">
+        <h4>Delete Account</h4>
+        <p>Permanently delete your account and all associated data. This cannot be undone.</p>
+    </div>
+
+    <button type="button" class="btn-danger"
+        onclick="if(confirm('Are you sure? This action cannot be undone.')) {
+            document.getElementById('deleteAccountForm').submit();
+        }">
+
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6l-1 14H6L5 6"/>
+            <path d="M9 6V4h6v2"/>
+        </svg>
+
+        Delete Account
+    </button>
+</div>
 
                     </div>
                 </div>
@@ -1188,6 +1207,8 @@
     document.getElementById('deleteModal').addEventListener('click', function(e) {
         if (e.target === this) closeDeleteModal();
     });
+
+
 </script>
 
 @endsection

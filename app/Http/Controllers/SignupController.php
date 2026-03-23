@@ -2,60 +2,85 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;    
+use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Models\State;
 use App\Models\Role;
 use App\Models\Post;
+
+
 class SignupController extends Controller
 {
-    // 🔥 Register Form Show
+    // Show Registration Form
     public function register()
     {
-           $roles = Role::all();
-           $states = State::all();
-      return view('Register', compact('roles', 'states'));
+        $roles = Role::all();
+        $states = State::all();
+        return view('Register', compact('roles', 'states'));
     }
-    
+    // Handle Registration
     public function showform()
     {
-          $roles = Role::all();
-           $states = State::all();
-        return view('user.register',compact('roles', 'states'));
+        $roles = Role::all();
+        $states = State::all();
+        return view('user.register', compact('roles', 'states'));
     }
 
-   
-
+    // User listing for admin
     public function listing()
     {
-        $users = User::latest()->get();
+        $users = User::with(['role', 'state'])
+            ->latest()
+            ->paginate(5);
+
         return view('user.list', compact('users'));
     }
-
+    // Show Profile
 
     public function showAdminPanel()
     {
         return view('Admin.Admin_meta');
     }
-    
-  public function dashboard()
-    {
-       
-    $users = User::all();
-    $posts = Post::all();
-    $roles = Role::all();
-    return view('admin.dashboard', compact('users','posts','roles'));
 
+    public function dashboard()
+    {
+        $users = User::with(['role', 'state'])->get();
+        $roles = Role::all();
+        $posts = Post::with(['user', 'likes', 'comments'])->get();
+
+        // ── Line Chart: posts ka date + month ──
+        $chartPosts = $posts->map(function ($p) {
+            return [
+                'date'  => $p->created_at->toDateString(),   // "2025-03-15"
+                'month' => $p->created_at->format('Y-m'),    // "2025-03"
+            ];
+        })->values()->toArray();
+
+        // ── Pie Chart: state-wise users ──
+        $chartUsers = $users->map(function ($u) {
+            return [
+                'state' => $u->state?->name ?? 'Unknown',
+            ];
+        })->values()->toArray();
+
+        return view('admin.dashboard', compact(
+            'users',
+            'posts',
+            'roles',
+            'chartPosts',
+            'chartUsers'
+        ));
     }
 
+    // User Profile
     public function index()
-{
-    $users = User::all();
-    return view('user.list', compact('users'));
-}
+    {
+        $users = User::all();
+        return view('user.list', compact('users'));
+    }
 
-  
+    // Show Profile
     public function store(Request $request)
     {
         $request->validate([
@@ -66,14 +91,14 @@ class SignupController extends Controller
             'password'   => 'required|min:8|confirmed',
             'role_id'    => 'required|exists:roles,id',
             'state_id'   => 'nullable|exists:states,id',
-            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png,avif|max:5120',
         ]);
 
         $imagePath = null;
 
         if ($request->hasFile('profile_image')) {
             $imagePath = $request->file('profile_image')
-                                ->store('profiles', 'public');
+                ->store('profiles', 'public');
         }
 
         User::create([
@@ -93,39 +118,43 @@ class SignupController extends Controller
             ->with('success', 'Account created successfully!');
     }
 
+    // Delete User
     public function destroy($id)
-{
-    $user = User::findOrFail($id);
-    $user->delete();
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
 
-    return redirect()->route('list')->with('success', 'User deleted successfully.');
-}
+        return redirect()->route('list')->with('success', 'User deleted successfully.');
+    }
+    // Edit User
 
-public function edit($id)
-{
-    $user = User::findOrFail($id);
-    $roles = Role::all(); 
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        $roles = Role::all();
+        $states = State::all();
 
-    return view('user.edit', compact('user','roles'));
-}
+        return view('user.edit', compact('user', 'roles', 'states'));
+    }
 
+    // Update User
+    public function update(Request $request, $id)
+    {
+        // dd($request->all());
+        $user = User::find($id);
 
-public function update(Request $request, $id)
-{
-    // dd($request->all());
-    $user = User::find($id);
+        $request->validate([
+            'first_name' => 'required',
+            'email' => 'required|email',
+        ]);
 
-    $request->validate([
-        'first_name' => 'required',
-        'email' => 'required|email',
-    ]);
+        $user->first_name = $request->first_name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->role_id = $request->role_id;
+        $user->state_id = $request->state_id;
+        $user->save();
 
-    $user->first_name = $request->first_name;
-    $user->email = $request->email;
-    $user->phone = $request->phone;
-    $user->role_id = $request->role_id;
-    $user->save();
-
-    return redirect()->route('list')->with('success','User updated successfully');
-}
+        return redirect()->route('list')->with('success', 'User updated successfully');
+    }
 }

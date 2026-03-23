@@ -15,8 +15,9 @@ return new class extends Migration
     $table->id();
     $table->foreignId('post_id')->constrained()->onDelete('cascade');
     $table->foreignId('user_id')->constrained()->onDelete('cascade');
+    $table->foreignId('comment_id')->nullable()->constrained()->onDelete('cascade');
     $table->timestamps();
-    
+
     $table->unique(['post_id', 'user_id']); // user ek post sirf 1 baar like kar sakta
 });
     }
