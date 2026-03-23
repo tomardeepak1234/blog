@@ -818,7 +818,7 @@
 
                         <div class="form-row">
                             <div class="field-group">
-                                <label class="field-label" for="phone">Phone Number</label>
+                                <label class="field-label" for="phone">Phone Number*</label>
                                 <input type="tel" id="phone" name="phone"
                                     class="field-input"
                                     value="{{ Auth::user()->phone ?? '' }}"
