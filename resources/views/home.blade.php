@@ -415,7 +415,8 @@ body{background:var(--bg);font-family:'Karla',sans-serif;color:var(--text);min-h
             <span class="like-count">{{ $post->likes->count() }}</span>
           </div>
         </div>
-        <div class="comment-section">
+
+     <div class="comment-section">
           <button class="comment-toggle" onclick="toggleComments(this)">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             {{ $post->comments->count() }} comment{{ $post->comments->count() !== 1 ? 's' : '' }} ▾
@@ -476,7 +477,7 @@ body{background:var(--bg);font-family:'Karla',sans-serif;color:var(--text);min-h
               </div>
               @endforeach
             </div>
-          </div>
+    </div>
         </div>
       </div>
       @empty
@@ -542,7 +543,7 @@ body{background:var(--bg);font-family:'Karla',sans-serif;color:var(--text);min-h
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-<script>
+ <script>
 
 gsap.registerPlugin(ScrollTrigger);
 

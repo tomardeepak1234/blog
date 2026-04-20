@@ -36,7 +36,6 @@ Route::post('/comment/{comment}/reply', [PostController::class, 'replyComment'])
 Route::post('/comment/{comment}/like', [PostController::class, 'likeComment'])->name('comment.like');
 
 Route::middleware('admin')->group(function () {
-
     // Roles master
     Route::get('/dashboard', [SignupController::class, 'dashboard'])->name('admin');
     Route::get('/role_master', [RoleController::class, 'index'])->name('roles.index');
@@ -65,7 +64,6 @@ Route::middleware('admin')->group(function () {
 
     //profile
     Route::middleware('auth')->group(function () {
-        Route::get('/home',[PostController::class,'home'])->name('home');
 
     Route::get('/profile', [ProfileController::class, 'create'])->name('profile');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
@@ -79,3 +77,4 @@ Route::middleware('admin')->group(function () {
 
 
 
+ Route::get('/home',[PostController::class,'home'])->name('home');

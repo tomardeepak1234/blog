@@ -77,6 +77,7 @@
     .notif-btn:hover {
         background: rgba(255,255,255,0.1);
         color: #f1f5f9;
+        
         border-color: rgba(255,255,255,0.15);
         transform: translateY(-1px);
     }
