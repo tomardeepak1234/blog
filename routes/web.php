@@ -75,6 +75,7 @@ Route::middleware('admin')->group(function () {
 
 });
 
-
-
  Route::get('/home',[PostController::class,'home'])->name('home');
+Route::get('/users/export', [UserController::class, 'export'])->name('user.export');
+
+

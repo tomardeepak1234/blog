@@ -86,6 +86,13 @@
         line-height: 1;
     }
 
+    /* ── CHANGE 1: btn-group wrapper ── */
+    .btn-group {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
     .btn-add {
         display: inline-flex;
         align-items: center;
@@ -109,6 +116,30 @@
         box-shadow: 0 0 36px rgba(108,99,255,0.55);
         transform: translateY(-1px);
         color: var(--white);
+    }
+
+    /* ── CHANGE 2: Export button style ── */
+    .btn-export {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.7rem 1.5rem;
+        background: rgba(52,211,153,0.1);
+        color: var(--success);
+        font-family: 'Karla', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 500;
+        border: 1px solid rgba(52,211,153,0.28);
+        border-radius: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.2s;
+        white-space: nowrap;
+    }
+    .btn-export:hover {
+        background: rgba(52,211,153,0.2);
+        border-color: rgba(52,211,153,0.5);
+        transform: translateY(-1px);
     }
 
     /* Stats */
@@ -488,11 +519,149 @@
     }
     .btn-modal-confirm:hover { background: #ff3357; box-shadow: 0 0 24px rgba(255,79,107,0.5); }
 
+    /* ── CHANGE 3: Export Modal styles ── */
+    #exportModal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.65);
+        backdrop-filter: blur(5px);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .export-modal-box {
+        background: #1a1a2a;
+        border: 1px solid #2e2e48;
+        border-radius: 16px;
+        width: 400px;
+        max-width: 92%;
+        overflow: hidden;
+        animation: fadeDown 0.25s ease;
+    }
+
+    .export-modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.1rem 1.4rem;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .export-modal-title {
+        font-family: 'Syne', sans-serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .export-modal-close {
+        background: none;
+        border: none;
+        color: var(--muted);
+        font-size: 1.3rem;
+        cursor: pointer;
+        line-height: 1;
+        padding: 0 4px;
+        transition: color 0.2s;
+    }
+    .export-modal-close:hover { color: var(--text); }
+
+    .export-modal-body { padding: 1.3rem 1.4rem; }
+
+    .export-date-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.85rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .export-field-label {
+        display: block;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.4rem;
+    }
+
+    .export-date-input {
+        width: 100%;
+        height: 40px;
+        padding: 0 0.85rem;
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--text);
+        font-family: 'Karla', sans-serif;
+        font-size: 0.85rem;
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .export-date-input:focus {
+        border-color: var(--success);
+        box-shadow: 0 0 0 3px rgba(52,211,153,0.1);
+    }
+
+    .export-hint {
+        font-size: 0.74rem;
+        color: var(--muted);
+        line-height: 1.5;
+        margin-top: 0.3rem;
+    }
+
+    .export-modal-footer {
+        display: flex;
+        gap: 0.65rem;
+        padding: 1rem 1.4rem;
+        border-top: 1px solid var(--border);
+    }
+
+    .btn-export-cancel {
+        flex: 1;
+        padding: 0.65rem;
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        border-radius: 8px;
+        font-family: 'Karla', sans-serif;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .btn-export-cancel:hover { border-color: var(--muted); color: var(--text); }
+
+    .btn-export-submit {
+        flex: 2;
+        padding: 0.65rem;
+        background: var(--success);
+        border: none;
+        color: #0d0d14;
+        border-radius: 8px;
+        font-family: 'Karla', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        box-shadow: 0 0 16px rgba(52,211,153,0.25);
+    }
+    .btn-export-submit:hover { background: #2bc889; box-shadow: 0 0 24px rgba(52,211,153,0.45); }
+
     @media (max-width: 768px) {
         .ul-wrapper { padding: 1.5rem 1rem; left: 0; }
         .page-title { font-size: 1.6rem; }
         .user-table thead th, .user-table tbody td { padding: 0.75rem 0.85rem; }
         .toolbar-search input { width: 140px; }
+        .export-date-grid { grid-template-columns: 1fr; }
     }
 
     nav { width: 100% }
@@ -508,13 +677,27 @@
             <p class="page-eyebrow">Admin Panel</p>
             <h1 class="page-title">User Listing</h1>
         </div>
-        <a href="{{ route('user.register') }}" class="btn-add">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none"
-                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
-            </svg>
-            Add User
-        </a>
+
+        {{-- CHANGE 1: btn-group wraps both buttons --}}
+        <div class="btn-group">
+            <a href="{{ route('user.register') }}" class="btn-add">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none"
+                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                </svg>
+                Add User
+            </a>
+
+            {{-- CHANGE 2: Export button --}}
+            <button type="button" class="btn-export" onclick="document.getElementById('exportModal').style.display='flex'">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Export
+            </button>
+        </div>
     </div>
 
     {{-- Stats --}}
@@ -654,10 +837,6 @@
 
         {{-- Footer --}}
         <div class="table-footer">
-            {{-- <span class="table-info">
-                Showing {{ $users->firstItem() ?? 0 }}–{{ $users->lastItem() ?? 0 }}
-                of {{ $users->total() }} users
-            </span> --}}
             {{ $users->links('pagination::bootstrap-5') }}
         </div>
 
@@ -678,13 +857,69 @@
         <h3 class="modal-title">Delete User?</h3>
         <p class="modal-desc">This action cannot be undone. The user will be permanently removed.</p>
         <div class="modal-actions">
-            <button class="btn-modal-cancel" onclick="closeModal()">Cancel</button>
+            <button class="btn-modal-cancel" onclick="closeDeleteModal()">Cancel</button>
             <button class="btn-modal-confirm" id="confirmDeleteBtn">Yes, Delete</button>
         </div>
     </div>
 </div>
 
+{{-- CHANGE 3: Export Modal --}}
+<div id="exportModal">
+    <div class="export-modal-box">
+
+        <div class="export-modal-header">
+            <span class="export-modal-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2.5">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Export Users
+            </span>
+            <button class="export-modal-close" onclick="closeExportModal()">×</button>
+        </div>
+
+        <form method="GET" action="{{ route('user.export') }}">
+            <div class="export-modal-body">
+                <div class="export-date-grid">
+                    <div>
+                        <label class="export-field-label" for="from_date">From date</label>
+                        <input type="date" id="from_date" name="from_date"
+                               class="export-date-input" required
+                               value="{{ request('from_date') }}">
+                    </div>
+                    <div>
+                        <label class="export-field-label" for="to_date">To date</label>
+                        <input type="date" id="to_date" name="to_date"
+                               class="export-date-input" required
+                               value="{{ request('to_date') }}">
+                    </div>
+                </div>
+                <p class="export-hint">
+                    Selected date range ke users CSV file mein export honge.
+                </p>
+            </div>
+
+            <div class="export-modal-footer">
+                <button type="button" class="btn-export-cancel" onclick="closeExportModal()">
+                    Cancel
+                </button>
+                <button type="submit" class="btn-export-submit">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    Export Now
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
 <script>
+    // Table search
     document.getElementById('tableSearch').addEventListener('input', function () {
         const q = this.value.toLowerCase();
         document.querySelectorAll('#userTable tbody tr').forEach(row => {
@@ -692,6 +927,7 @@
         });
     });
 
+    // Delete Modal
     let pendingForm = null;
 
     function confirmDelete(btn) {
@@ -699,7 +935,7 @@
         document.getElementById('deleteModal').style.display = 'flex';
     }
 
-    function closeModal() {
+    function closeDeleteModal() {
         document.getElementById('deleteModal').style.display = 'none';
         pendingForm = null;
     }
@@ -709,7 +945,21 @@
     });
 
     document.getElementById('deleteModal').addEventListener('click', function (e) {
-        if (e.target === this) closeModal();
+        if (e.target === this) closeDeleteModal();
+    });
+
+    // Export Modal
+    function closeExportModal() {
+        document.getElementById('exportModal').style.display = 'none';
+    }
+
+    document.getElementById('exportModal').addEventListener('click', function (e) {
+        if (e.target === this) closeExportModal();
+    });
+
+    // Auto date validation: to_date >= from_date
+    document.getElementById('from_date').addEventListener('change', function () {
+        document.getElementById('to_date').min = this.value;
     });
 </script>
 

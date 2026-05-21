@@ -157,4 +157,6 @@ class SignupController extends Controller
 
         return redirect()->route('list')->with('success', 'User updated successfully');
     }
+
+    
 }

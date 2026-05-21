@@ -77,7 +77,7 @@
     .notif-btn:hover {
         background: rgba(255,255,255,0.1);
         color: #f1f5f9;
-        
+
         border-color: rgba(255,255,255,0.15);
         transform: translateY(-1px);
     }
@@ -279,7 +279,7 @@
       @php
     $user = auth()->user();
 @endphp
-
+@auth
 <div class="profile-dropdown">
     <button class="profile-btn" id="profileToggle">
 
@@ -330,6 +330,11 @@
 
     </div>
 </nav>
+@endauth
+@guest
+<div class="navbar-right">
+    <a href="{{ route('login') }}" class="profile-btn">Login</a>
+@endguest
 
 <script>
     const toggleBtn = document.getElementById('profileToggle');

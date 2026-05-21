@@ -207,12 +207,12 @@
   .nav-divider {
     border: none;
     border-top: 1px solid var(--border);
-    
+
      font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: var(--muted);
-  
+
     margin-top: 14px;
     font-weight: 600;
   }
@@ -285,6 +285,8 @@
   .logout-btn:hover { background: rgba(255,101,132,0.1); color: var(--accent2); }
 </style>
 
+ @auth
+
 
 <div class="sidebar">
 
@@ -346,7 +348,7 @@
 
     @if(in_array(Auth::user()->role->name, ['Admin','Author']))
 
-      
+
       <div class="nav-divider">Content</div>
 
       <a href="{{ url('post') }}" class="nav-item-link">
@@ -371,6 +373,7 @@
   @endif
 
 </div>
+ @endauth
 
 <script>
   document.querySelectorAll('.nav-item-link').forEach(link => {
